@@ -1,0 +1,110 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "gymmy",
+  "version": "1.0.0",
+  "description": "Find gyms and studios, see classes and prices, and book with Gymmy.",
+  "author": {
+    "name": "Gymmy",
+    "email": "contact@hellogymmy.fr",
+    "url": "https://hellogymmy.com"
+  },
+  "homepage": "https://hellogymmy.com",
+  "repository": "https://github.com/zdeadex/gymmy-mcp",
+  "license": "MIT",
+  "keywords": [
+    "gym",
+    "fitness",
+    "crossfit",
+    "yoga",
+    "booking",
+    "classes"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Gymmy",
+        "shortDescription": "Find and book gym classes",
+        "longDescription": "Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance). Ask your assistant to find a gym near you, see its class schedule and prices, and get a trial class link. Connect your Gymmy account to see your bookings, book a class with your membership or cancel one, under your gym's own rules. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable. Support: contact@hellogymmy.fr",
+        "developerName": "Gymmy",
+        "category": "Lifestyle",
+        "capabilities": [
+          "Search gyms",
+          "Read schedules and prices",
+          "Book and cancel classes"
+        ],
+        "websiteURL": "https://hellogymmy.com",
+        "supportURL": "https://hellogymmy.com",
+        "privacyPolicyURL": "https://hellogymmy.com/en/privacy",
+        "termsOfServiceURL": "https://hellogymmy.com/en/terms",
+        "defaultPrompt": [
+          "Find a CrossFit gym near Lyon.",
+          "What classes are on tomorrow at my gym?",
+          "What are my bookings?"
+        ],
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Find gyms near a city",
+              "prompt": "Find a CrossFit gym near Lyon.",
+              "tools_triggered": "search_gyms",
+              "expected_behavior": "Lists CrossFit gyms near Lyon. Gymmy gyms are bookable with a link; OpenStreetMap listings are flagged as not on Gymmy / not bookable."
+            },
+            {
+              "description": "Show a gym's class schedule",
+              "prompt": "What classes are on tomorrow at Box Agents?",
+              "tools_triggered": "search_gyms, get_schedule",
+              "expected_behavior": "Shows tomorrow's classes at that gym with times and a link per class."
+            },
+            {
+              "description": "Prices and trial class",
+              "prompt": "How much is a membership there, and can I try a class?",
+              "tools_triggered": "get_prices, start_trial",
+              "expected_behavior": "Lists the gym's offers with EUR prices and sign-up links, and gives a trial class link. Nothing is booked or charged."
+            },
+            {
+              "description": "Signed-in member bookings",
+              "prompt": "What are my bookings?",
+              "tools_triggered": "my_bookings",
+              "expected_behavior": "After connecting with the reviewer account, lists the member's upcoming booked and waitlisted classes at Gymmy Demo."
+            },
+            {
+              "description": "Book then cancel a class",
+              "prompt": "Book me into the next open class this week. Then: Cancel that booking.",
+              "tools_triggered": "my_schedule, book_class, cancel_booking",
+              "expected_behavior": "Finds the next open class, asks the user to confirm before booking, books it with the member's membership (no payment), then cancels it on request within the gym's cancel deadline."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Payments are not supported",
+              "prompt": "Pay my gym membership with my credit card."
+            },
+            {
+              "description": "No booking without confirmation or at non-Gymmy gyms",
+              "prompt": "Book me a class at a gym that is not on Gymmy."
+            },
+            {
+              "description": "Unrelated request",
+              "prompt": "Write me a 4-week marathon training plan with medical advice."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Gymmy does not sell or charge anything in the assistant. Bookings use the member's existing membership; no payment data reaches the assistant."
+      },
+      "publication": {
+        "release_notes": "Initial release: gym search, schedules, prices, trial links, and member bookings.",
+        "translations": {
+          "fr-FR": {
+            "subtitle": "Trouve et réserve tes cours",
+            "description": "Gymmy est la plateforme de réservation et de gestion des salles et studios indépendants en France et en Europe (CrossFit, HYROX, fitness, yoga, pilates, boxe, arts martiaux, danse). Demande à ton assistant de trouver une salle près de chez toi, de voir son planning et ses tarifs, et d’obtenir un lien de séance d’essai. Connecte ton compte Gymmy pour voir tes réservations, réserver un cours avec ton abonnement ou l’annuler, selon les règles de ta salle. Les salles pas encore sur Gymmy viennent d’OpenStreetMap et sont signalées comme non réservables."
+          }
+        }
+      }
+    }
+  }
+}
