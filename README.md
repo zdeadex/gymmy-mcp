@@ -2,7 +2,7 @@
 
 # Gymmy MCP server
 
-[![Gymmy MCP server](https://mcprush.com/badge/gymmy-mcp/card.svg)](https://mcprush.com/to/gymmy-mcp?ref=badge)
+[![Gymmy MCP on mcprush](https://mcprush.com/badge/gymmy-mcp/score.svg)](https://mcprush.com/hellogymmy/gymmy-mcp)
 
 Official [Model Context Protocol](https://modelcontextprotocol.io) server for [Gymmy](https://hellogymmy.com): find gyms and studios, check schedules and prices, book classes and start a free trial from any AI assistant.
 
