@@ -2,6 +2,8 @@
 
 # Gymmy MCP server
 
+[![Gymmy MCP on mcprush](https://mcprush.com/badge/gymmy-mcp/score.svg)](https://mcprush.com/hellogymmy/gymmy-mcp)
+
 Official [Model Context Protocol](https://modelcontextprotocol.io) server for [Gymmy](https://hellogymmy.com): find gyms and studios, check schedules and prices, book classes and start a free trial from any AI assistant.
 
 Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance). Ask your assistant to find a gym near you, see its class schedule and prices, and get a trial class link. Connect your Gymmy account to see your bookings, book a class with your membership or cancel one, under your gym's own rules. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable.
