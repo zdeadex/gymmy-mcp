@@ -1,0 +1,28 @@
+{
+  "name": "gymmy",
+  "version": "1.0.0",
+  "description": "Find gyms and studios, see classes and prices, and book with Gymmy.",
+  "author": {
+    "name": "Gymmy",
+    "email": "contact@hellogymmy.fr",
+    "url": "https://hellogymmy.com"
+  },
+  "homepage": "https://hellogymmy.com",
+  "repository": "https://github.com/zdeadex/gymmy-mcp",
+  "license": "MIT",
+  "privacyPolicyUrl": "https://hellogymmy.com/en/privacy",
+  "keywords": [
+    "gym",
+    "fitness",
+    "crossfit",
+    "yoga",
+    "booking",
+    "classes"
+  ],
+  "mcpServers": {
+    "gymmy": {
+      "type": "http",
+      "url": "https://hellogymmy.com/api/mcp"
+    }
+  }
+}
