@@ -8,15 +8,15 @@ Progress is saved in the browser only.
 
 ## Before you open the portal
 
-- [ ] Add `https://hellogymmy.com/api/mcp` as a custom connector in Claude (Settings → Connectors) and run **every** tool once, signed out and signed in (the portal asks you to confirm this).
+- [ ] Add `https://hellogymmy.com/api/mcp/member` as a custom connector in Claude (Settings → Connectors) and run **every** tool once, signed out and signed in (the portal asks you to confirm this).
 - [ ] Errors are explicit (no bare "Internal Server Error" / "Bad Request").
 - [ ] Privacy policy at https://hellogymmy.com/en/privacy covers data collected, use and storage, third-party sharing (Stripe, OpenStreetMap), retention, and a contact. A missing or incomplete policy is an immediate rejection.
 - [ ] Icon ready: [`assets/icon-512.png`](../assets/icon-512.png) (or [`assets/mark.svg`](../assets/mark.svg)).
 
 ## 1. Connection
 
-Server URL: `https://hellogymmy.com/api/mcp`
-Single URL (not per-customer).
+Server URL: `https://hellogymmy.com/api/mcp/member`
+Single URL (not per-customer). This endpoint asks for Gymmy sign-in when the user connects (an e-mail code signs in or creates a Gymmy account), so every tool works from the start. `https://hellogymmy.com/api/mcp` (sign-in only when needed) stays for ChatGPT and other clients.
 
 ## 2. Tools
 
@@ -42,7 +42,7 @@ Description (≤ 2,000):
 ## 4. Use cases
 
 - Primary use cases: find a gym or studio nearby; check a class schedule and prices; get a trial class link; see my bookings; book or cancel a class with my membership; buy a drop-in or membership via the gym's Stripe Checkout.
-- Setup before connecting: none for public tools. Member tools need a free Gymmy account (e-mail code); booking with a membership needs a membership at a Gymmy gym.
+- Setup before connecting: a free Gymmy account, created at connect with an e-mail code if the person has none. Booking with a membership needs a membership at a Gymmy gym.
 - Reads or writes: **both** (reads gyms, schedules, prices, bookings; writes bookings and cancellations; creates checkout sessions).
 
 ## 5. Company
@@ -51,7 +51,7 @@ Gymmy · https://hellogymmy.com · primary contact for review updates: an inbox 
 
 ## 6. Authentication
 
-- Requirement: **required when the server asks**: public tools work signed out; member tools trigger sign-in.
+- Requirement: **required** (sign-in at connect, on `/api/mcp/member`).
 - Method: OAuth 2.1 + PKCE (S256), Dynamic Client Registration / Client ID Metadata Documents, RFC 8707 resource indicators. No Anthropic-held client ID/secret needed.
 
 ## 7. Data handling
