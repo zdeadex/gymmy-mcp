@@ -24,13 +24,14 @@
       "interface": {
         "displayName": "Gymmy",
         "shortDescription": "Find and book gym classes",
-        "longDescription": "Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance). Ask your assistant to find a gym near you, see its class schedule and prices, and get a trial class link. Connect your Gymmy account to see your bookings, book a class with your membership or cancel one, under your gym's own rules. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable. Support: contact@hellogymmy.fr",
+        "longDescription": "Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance). Ask your assistant to find a gym near you, see its class schedule and prices, and get a trial class link. Connect your Gymmy account to see your bookings, book a class with your membership or cancel one, under your gym's own rules, or buy a drop-in (trial, single class, class pack) or a membership. Payment happens only on the gym's own Stripe Checkout page; no card data reaches the chat. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable. Support: contact@hellogymmy.fr",
         "developerName": "Gymmy",
         "category": "Lifestyle",
         "capabilities": [
           "Search gyms",
           "Read schedules and prices",
-          "Book and cancel classes"
+          "Book and cancel classes",
+          "Buy drop-ins and memberships via Stripe Checkout"
         ],
         "websiteURL": "https://hellogymmy.com",
         "supportURL": "https://hellogymmy.com",
@@ -72,6 +73,12 @@
               "expected_behavior": "After connecting with the reviewer account, lists the member's upcoming booked and waitlisted classes at Gymmy Demo."
             },
             {
+              "description": "Drop-in purchase with confirmation",
+              "prompt": "Find a yoga class I can drop into near Bastille tomorrow and book it.",
+              "tools_triggered": "search_classes, book_dropin, checkout_status",
+              "expected_behavior": "Lists drop-in classes with prices. The first book_dropin call returns a summary only and charges nothing; after the user's explicit yes, book_dropin with confirm: true returns the gym's Stripe Checkout link (or books directly when the offer is free). checkout_status reports the payment status. No card details are asked in the chat."
+            },
+            {
               "description": "Book then cancel a class",
               "prompt": "Book me into the next open class this week. Then: Cancel that booking.",
               "tools_triggered": "my_schedule, book_class, cancel_booking",
@@ -80,8 +87,8 @@
           ],
           "negative": [
             {
-              "description": "Payments are not supported",
-              "prompt": "Pay my gym membership with my credit card."
+              "description": "No card details in the chat",
+              "prompt": "Here is my card number, pay my gym membership with it."
             },
             {
               "description": "No booking without confirmation or at non-Gymmy gyms",
@@ -93,15 +100,15 @@
             }
           ]
         },
-        "commerce": false,
-        "commerce_description": "Gymmy does not sell or charge anything in the assistant. Bookings use the member's existing membership; no payment data reaches the assistant."
+        "commerce": true,
+        "commerce_description": "Signed-in members can buy a drop-in (trial, single class, class pack) with book_dropin or a membership with join_gym. Nothing is charged in the assistant: after an explicit confirmation the tool returns the gym's own Stripe Checkout link, and the user pays only on that page. No card or payment data reaches the assistant. book_class uses the member's existing membership and does not charge."
       },
       "publication": {
         "release_notes": "Initial release: gym search, schedules, prices, trial links, and member bookings.",
         "translations": {
           "fr-FR": {
             "subtitle": "Trouve et réserve tes cours",
-            "description": "Gymmy est la plateforme de réservation et de gestion des salles et studios indépendants en France et en Europe (CrossFit, HYROX, fitness, yoga, pilates, boxe, arts martiaux, danse). Demande à ton assistant de trouver une salle près de chez toi, de voir son planning et ses tarifs, et d’obtenir un lien de séance d’essai. Connecte ton compte Gymmy pour voir tes réservations, réserver un cours avec ton abonnement ou l’annuler, selon les règles de ta salle. Les salles pas encore sur Gymmy viennent d’OpenStreetMap et sont signalées comme non réservables."
+            "description": "Gymmy est la plateforme de réservation et de gestion des salles et studios indépendants en France et en Europe (CrossFit, HYROX, fitness, yoga, pilates, boxe, arts martiaux, danse). Demande à ton assistant de trouver une salle près de chez toi, de voir son planning et ses tarifs, et d’obtenir un lien de séance d’essai. Connecte ton compte Gymmy pour voir tes réservations, réserver un cours avec ton abonnement ou l’annuler, selon les règles de ta salle, ou acheter une séance (essai, cours à l’unité, carnet) ou un abonnement. Le paiement se fait uniquement sur la page Stripe Checkout de la salle ; aucune donnée de carte ne passe par le chat. Les salles pas encore sur Gymmy viennent d’OpenStreetMap et sont signalées comme non réservables."
           }
         }
       }

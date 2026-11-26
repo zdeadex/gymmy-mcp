@@ -1,0 +1,24 @@
+{
+  "name": "gymmy",
+  "owner": {
+    "name": "Gymmy",
+    "email": "contact@hellogymmy.fr"
+  },
+  "metadata": {
+    "description": "Gymmy plugin for Claude Code: find gyms and studios, see classes and prices, and book with Gymmy."
+  },
+  "plugins": [
+    {
+      "name": "gymmy",
+      "source": "./",
+      "description": "Find gyms and studios, see classes and prices, and book with Gymmy.",
+      "version": "1.0.0",
+      "author": { "name": "Gymmy", "email": "contact@hellogymmy.fr" },
+      "homepage": "https://hellogymmy.com",
+      "repository": "https://github.com/zdeadex/gymmy-mcp",
+      "license": "MIT",
+      "category": "lifestyle",
+      "keywords": ["gym", "fitness", "crossfit", "yoga", "booking", "classes"]
+    }
+  ]
+}

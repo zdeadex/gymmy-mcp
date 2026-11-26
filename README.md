@@ -72,7 +72,24 @@ That snippet is what you paste into Cursor. [`mcp.json`](mcp.json) in this repos
 
 Settings > Connectors > **Add custom connector**, URL `https://hellogymmy.com/api/mcp/member` (sign-in at connect) or `https://hellogymmy.com/api/mcp` (public tools only).
 
+The listing for Anthropic's connectors directory is prepared in [`claude-connector/SUBMISSION.md`](claude-connector/SUBMISSION.md). Until it is listed, add it as a custom connector as above. The skill can also be uploaded on claude.ai (Settings > Capabilities > Skills) as a zip of [`skills/gymmy/`](skills/gymmy/).
+
 ### Claude Code
+
+**Plugin** (skill + MCP server). This repository is also a Claude Code plugin marketplace ([`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)) with one plugin, `gymmy` ([`.claude-plugin/plugin.json`](.claude-plugin/plugin.json)), which bundles the MCP server and [`skills/gymmy/SKILL.md`](skills/gymmy/SKILL.md):
+
+```sh
+/plugin install gymmy --marketplace zdeadex/gymmy-mcp
+```
+
+On Claude Code older than 2.1.275, add the marketplace first:
+
+```sh
+/plugin marketplace add zdeadex/gymmy-mcp
+/plugin install gymmy@gymmy
+```
+
+**MCP server only** (no skill):
 
 ```sh
 claude mcp add --transport http gymmy https://hellogymmy.com/api/mcp
@@ -146,6 +163,9 @@ Any client supporting remote Streamable HTTP servers with OAuth works with `http
 - [`plugin.json`](plugin.json): Agent Plugin manifest (`name` `gymmy`), including the ChatGPT `extensions.com.openai` block
 - [`mcp.json`](mcp.json): Agent Plugin MCP config. The only server key is `gymmy` (`type: streamable-http`, `https://hellogymmy.com/api/mcp`). The old root `.mcp.json` example was removed so Cursor, which reads `.mcp.json` before `mcp.json`, cannot install a different entry
 - [`skills/gymmy/SKILL.md`](skills/gymmy/SKILL.md): when to call each tool, the confirm step, and the Stripe-only payment rule
+- [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json): Claude Code plugin manifest (`gymmy`), declaring the MCP server inline (`type: http`) so no root `.mcp.json` is needed; the skill is picked up from `skills/`
+- [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json): Claude Code marketplace `gymmy` listing that one plugin (`source: ./`)
+- [`claude-connector/SUBMISSION.md`](claude-connector/SUBMISSION.md): listing copy and reviewer notes for Anthropic's Claude connectors directory
 - [`server.json`](server.json): [MCP Registry](https://registry.modelcontextprotocol.io) entry (`com.hellogymmy/gymmy`), unchanged
 - [`chatgpt-plugin/README.md`](chatgpt-plugin/README.md): pointer to the root package (no second manifest)
 
