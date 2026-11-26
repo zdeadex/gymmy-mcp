@@ -1,36 +1,77 @@
 # Claude connectors directory: Gymmy submission
 
-Copy for Anthropic's connectors directory (claude.ai, Claude Desktop, Claude mobile). Submit it through Anthropic's MCP directory submission form. This file only holds the answers; the form and review happen on Anthropic's side.
+Copy-paste answers for Anthropic's connectors directory (claude.ai, Claude Desktop, Claude mobile), in the order of the submission portal. Docs: [submission](https://claude.com/docs/connectors/building/submission), [review criteria](https://claude.com/docs/connectors/building/review-criteria).
 
-## Listing
+**Where:** https://claude.ai/directory/manage → **Submit new** → **MCP connector** (not *Plugin bundle*).
+**Who:** a Pro, Max, Ultra, Team or Enterprise account (Free cannot submit); on Team/Enterprise, an Owner. The listing belongs to the organization you submit from, so submit from the one that should own Gymmy's listing.
+Progress is saved in the browser only.
+
+## Before you open the portal
+
+- [ ] Add `https://hellogymmy.com/api/mcp` as a custom connector in Claude (Settings → Connectors) and run **every** tool once, signed out and signed in (the portal asks you to confirm this).
+- [ ] Errors are explicit (no bare "Internal Server Error" / "Bad Request").
+- [ ] Privacy policy at https://hellogymmy.com/en/privacy covers data collected, use and storage, third-party sharing (Stripe, OpenStreetMap), retention, and a contact. A missing or incomplete policy is an immediate rejection.
+- [ ] Icon ready: [`assets/icon-512.png`](../assets/icon-512.png) (or [`assets/mark.svg`](../assets/mark.svg)).
+
+## 1. Connection
+
+Server URL: `https://hellogymmy.com/api/mcp`
+Single URL (not per-customer).
+
+## 2. Tools
+
+Synced from the server. All 14 tools have a `title` and `readOnlyHint` / `destructiveHint`; names are under 64 characters. Fix any tool the portal flags on the server, then resync.
+
+## 3. Listing
 
 | Field | Value |
 | --- | --- |
-| Name | Gymmy |
-| Server URL | `https://hellogymmy.com/api/mcp` |
-| Server URL, sign-in at connect | `https://hellogymmy.com/api/mcp/member` |
-| Transport | Streamable HTTP (stateless) |
-| Auth | OAuth 2.1 + PKCE (S256), Client ID Metadata Documents or Dynamic Client Registration, RFC 8707 resource indicators. Public tools work without sign-in |
-| Category | Lifestyle |
-| Tagline | Find and book gym classes |
-| Website | https://hellogymmy.com |
-| Support | contact@hellogymmy.fr |
-| Privacy policy | https://hellogymmy.com/en/privacy |
-| Terms | https://hellogymmy.com/en/terms |
-| Logo / icon | [`assets/icon-512.png`](../assets/icon-512.png), [`assets/mark.svg`](../assets/mark.svg), [`assets/logo.png`](../assets/logo.png) |
-| Source / docs | https://github.com/zdeadex/gymmy-mcp |
+| Server name | Gymmy |
+| One-liner (≤ 200) | Find gyms and studios in France and Europe, see classes and prices, and book with your Gymmy account. |
+| Categories (1–5) | the closest of: Lifestyle, Health & fitness, Booking / scheduling |
+| Documentation URL | https://github.com/zdeadex/gymmy-mcp |
+| Privacy policy URL | https://hellogymmy.com/en/privacy |
+| Support contact | contact@hellogymmy.fr |
+| Icon | `assets/icon-512.png` |
+| URL slug (permanent) | `gymmy` |
 
-### Description
+Description (≤ 2,000):
 
-Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance). Ask Claude to find a gym near you, see its class schedule and prices, and get a trial class link. Connect your Gymmy account to see your bookings, book a class with your membership or cancel one, under your gym's own rules, or buy a drop-in or membership through the gym's own Stripe Checkout page. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable.
+> Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance, climbing). Ask Claude to find a gym near you, see its class schedule and prices, and get a trial class link, with no account. Connect your Gymmy account (e-mail code) to see your gyms and upcoming bookings, book a class with your membership or cancel one under your gym's own rules, or buy a drop-in (trial, single class, class pack) or a membership. Purchases are never charged in the chat: after you confirm, Gymmy returns the gym's own Stripe Checkout page, and no card data reaches Claude. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable.
 
-### Description (fr-FR)
+## 4. Use cases
 
-Gymmy est la plateforme de réservation et de gestion des salles et studios indépendants en France et en Europe (CrossFit, HYROX, fitness, yoga, pilates, boxe, arts martiaux, danse). Demande à Claude de trouver une salle près de chez toi, de voir son planning et ses tarifs, et d’obtenir un lien de séance d’essai. Connecte ton compte Gymmy pour voir tes réservations, réserver un cours avec ton abonnement ou l’annuler selon les règles de ta salle, ou acheter une séance ou un abonnement sur la page Stripe Checkout de la salle. Les salles pas encore sur Gymmy viennent d’OpenStreetMap et sont signalées comme non réservables.
+- Primary use cases: find a gym or studio nearby; check a class schedule and prices; get a trial class link; see my bookings; book or cancel a class with my membership; buy a drop-in or membership via the gym's Stripe Checkout.
+- Setup before connecting: none for public tools. Member tools need a free Gymmy account (e-mail code); booking with a membership needs a membership at a Gymmy gym.
+- Reads or writes: **both** (reads gyms, schedules, prices, bookings; writes bookings and cancellations; creates checkout sessions).
 
-## Tools
+## 5. Company
 
-Every tool has a `title` and `readOnlyHint` / `destructiveHint` annotations.
+Gymmy · https://hellogymmy.com · primary contact for review updates: an inbox you watch (e.g. contact@hellogymmy.fr).
+
+## 6. Authentication
+
+- Requirement: **required when the server asks**: public tools work signed out; member tools trigger sign-in.
+- Method: OAuth 2.1 + PKCE (S256), Dynamic Client Registration / Client ID Metadata Documents, RFC 8707 resource indicators. No Anthropic-held client ID/secret needed.
+
+## 7. Data handling
+
+- API: **our own first-party API** (hellogymmy.com). Non-Gymmy gym listings come from OpenStreetMap (ODbL), shown as such.
+- Personal health data: no. Sponsored content: no.
+
+## 8. Test & launch
+
+Confirm every tool was run (see checklist above). **Do not enter credentials in the portal.** If the listing is escalated to Verified review, a reviewer emails for test access: then send a member account at **Gymmy Demo** with an active membership, classes in the coming days, and a free or Stripe test-mode drop-in offer. Sign-in is by e-mail code, so give an inbox the reviewer can read or a fixed code for that account.
+
+## 9. Compliance
+
+Seven acknowledgments, all required. Read each one. Note on **financial transactions**: the directory does not support money transfers. Gymmy only returns the gym's Stripe Checkout link after an explicit confirmation and never moves money itself. Answer this one accurately; if it is unclear, ask `mcp-review@anthropic.com` before submitting.
+
+## 10. Review and submit
+
+Every submission is scanned and listed as a **Community connector** by default; some are escalated to **Verified** review (slower, a reviewer tests each tool). No fixed timeline. Status: https://claude.ai/directory/manage. Questions: `mcp-review@anthropic.com`.
+
+## Reference: tools
 
 | Tool | Sign-in | Read-only | What |
 | --- | --- | --- | --- |
@@ -49,9 +90,7 @@ Every tool has a `title` and `readOnlyHint` / `destructiveHint` annotations.
 | `book_class` | yes | no | Books with the member's own membership, no payment |
 | `cancel_booking` | yes | no (destructive) | Cancels a booking; the gym's deadline applies |
 
-Payment never happens in the chat: only on the Stripe Checkout page returned after an explicit confirmation. No card data reaches Claude.
-
-## Example prompts
+## Reference: example prompts
 
 1. "Find a CrossFit gym near Lyon."
 2. "What classes are on tomorrow at Box Agents?"
@@ -59,21 +98,3 @@ Payment never happens in the chat: only on the Stripe Checkout page returned aft
 4. "Find a yoga class I can drop into near Bastille tomorrow."
 5. After connecting: "What are my bookings?"
 6. "Book me into the next open class this week." then "Cancel that booking."
-
-## Reviewer notes
-
-- Test account: a Gymmy member account at the gym **Gymmy Demo**, with an active membership and classes in the next 7 days. Sign-in is by e-mail code, so give the reviewers an inbox they can read, or a fixed code for that account. Fill in the credentials only in the submission form, never in this repository.
-- Expected flows (also in `extensions.com.openai.review` in [`plugin.json`](../plugin.json)):
-  - `search_gyms` lists Gymmy gyms as bookable and OpenStreetMap listings as not on Gymmy.
-  - `get_schedule` / `get_prices` / `start_trial` work without sign-in and book or charge nothing.
-  - `my_bookings` after OAuth lists the reviewer's bookings at Gymmy Demo.
-  - `book_class` then `cancel_booking`: Claude asks before each call; no payment.
-  - `book_dropin` first call returns a summary only; after an explicit yes and `confirm: true`, a Stripe Checkout link (use a free or Stripe test-mode offer at Gymmy Demo).
-- OAuth: the consent page is Gymmy's own; tokens are scoped to this server (RFC 8707) and can be revoked by the member.
-
-## Checklist before submitting
-
-- [ ] `https://hellogymmy.com/api/mcp` reachable from Anthropic's IP ranges (no geo or bot blocking)
-- [ ] Claude's OAuth callback allowed: `https://claude.ai/api/mcp/auth_callback`
-- [ ] Reviewer account ready at Gymmy Demo, with classes scheduled during the review window
-- [ ] Tested end to end in claude.ai as a custom connector, on web and mobile
