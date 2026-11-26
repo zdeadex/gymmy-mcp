@@ -61,7 +61,9 @@ Gymmy · https://hellogymmy.com · primary contact for review updates: an inbox 
 
 ## 8. Test & launch
 
-Confirm every tool was run (see checklist above). **Do not enter credentials in the portal.** If the listing is escalated to Verified review, a reviewer emails for test access: then send a member account at **Gymmy Demo** with an active membership, classes in the coming days, and a free or Stripe test-mode drop-in offer. Sign-in is by e-mail code, so give an inbox the reviewer can read or a fixed code for that account.
+Confirm every tool was run (see checklist above). **Do not enter credentials in the portal.** If the listing is escalated to Verified review, a reviewer emails for test access: then send a member account at the internal test gym (hidden from public search, but listed by `get_my_account`, `my_gyms`, `my_schedule` and `my_bookings` for its members) with an active membership, classes in the coming days, and a free or Stripe test-mode drop-in offer. Sign-in is by e-mail code, so give an inbox the reviewer can read or a fixed code for that account.
+
+The test gym does not show in `search_gyms`, `search_classes`, `get_gym`, `get_schedule`, `get_prices` or `start_trial` (on purpose). Those tools need a real Gymmy gym that is public and bookable: say which one in the reply to the reviewer. Without one, they can only be tested on directory listings (`bookable: false`).
 
 ## 9. Compliance
 

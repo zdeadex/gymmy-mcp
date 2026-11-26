@@ -70,7 +70,7 @@
               "description": "Signed-in member bookings",
               "prompt": "What are my bookings?",
               "tools_triggered": "my_bookings",
-              "expected_behavior": "After connecting with the reviewer account, lists the member's upcoming booked and waitlisted classes at Gymmy Demo."
+              "expected_behavior": "After connecting with the reviewer account, lists the member's upcoming booked and waitlisted classes at the reviewer's test gym."
             },
             {
               "description": "Drop-in purchase with confirmation",
