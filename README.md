@@ -36,6 +36,7 @@ This is a **hosted remote server**: nothing to install or run. The same reposito
 | `book_dropin` | yes | Buy a trial, single class, or class pack and book it. The first call returns a summary; `confirm: true` only after an explicit yes, then the gym's Stripe link (or a booking when free) |
 | `join_gym` | yes | Membership or class pack from `get_prices`. Same confirm-then-Stripe pattern, with no class |
 | `checkout_status` | yes | `pending`, `processing`, `paid`, `free`, or `failed` for a `book_dropin` or `join_gym` ref |
+| `get_my_account` | yes | Who is signed in: name, e-mail, membership status, linked gyms |
 | `my_gyms` | yes | Gyms of the signed-in member |
 | `my_bookings` | yes | Upcoming booked and waitlisted classes |
 | `my_schedule` | yes | Week of classes with class ids |
@@ -70,7 +71,7 @@ That snippet is what you paste into Cursor. [`mcp.json`](mcp.json) in this repos
 
 ### Claude (claude.ai and Claude Desktop)
 
-Settings > Connectors > **Add custom connector**, URL `https://hellogymmy.com/api/mcp/member` (sign-in at connect) or `https://hellogymmy.com/api/mcp` (public tools only).
+Settings > Connectors > **Add custom connector**, URL `https://hellogymmy.com/api/mcp/member`. Claude asks you to sign in to Gymmy (e-mail code) when you connect, so every tool works, including your bookings. `https://hellogymmy.com/api/mcp` connects without sign-in and only the public tools work there.
 
 The listing for Anthropic's connectors directory is prepared in [`claude-connector/SUBMISSION.md`](claude-connector/SUBMISSION.md). Until it is listed, add it as a custom connector as above. The skill can also be uploaded on claude.ai (Settings > Capabilities > Skills) as a zip of [`skills/gymmy/`](skills/gymmy/).
 
@@ -142,7 +143,7 @@ Any client supporting remote Streamable HTTP servers with OAuth works with `http
 ## Example prompts
 
 1. "Find a CrossFit gym near Lyon."
-2. "What classes are on tomorrow at Box Agents?"
+2. "What classes are on tomorrow at that gym?"
 3. "How much is a membership there, and can I try a class?"
 4. "Find a yoga class I can drop into near Bastille tomorrow."
 5. After connecting your Gymmy account: "What are my bookings?"
@@ -153,7 +154,7 @@ Any client supporting remote Streamable HTTP servers with OAuth works with `http
 ## Auth and privacy
 
 - Public tools (`search_gyms`, `get_gym`, `get_schedule`, `get_prices`, `start_trial`, `search_classes`) use public gym data only and need no account.
-- `book_dropin`, `join_gym`, `checkout_status`, `my_gyms`, `my_schedule`, `my_bookings`, `book_class`, and `cancel_booking` need you to sign in with your Gymmy account (e-mail code) and approve access on Gymmy's consent page. Tokens are scoped to this server and can be revoked.
+- `book_dropin`, `join_gym`, `checkout_status`, `get_my_account`, `my_gyms`, `my_schedule`, `my_bookings`, `book_class`, and `cancel_booking` need you to sign in with your Gymmy account (e-mail code) and approve access on Gymmy's consent page. Tokens are scoped to this server and can be revoked.
 - Drop-in and join payments happen only on the Stripe Checkout page the tool returns (the gym's own account). No card data reaches the assistant. `book_class` uses your membership and does not charge. Bookings follow your gym's own rules.
 - Non-Gymmy gym listings come from OpenStreetMap (© OpenStreetMap contributors, ODbL 1.0).
 - Privacy policy: https://hellogymmy.com/en/privacy · Terms: https://hellogymmy.com/en/terms

@@ -1,11 +1,11 @@
 ---
 name: gymmy
-description: "Use when the user wants a gym or studio in France or Europe, a class schedule, prices, a trial link, a drop-in (one class, a trial, or a class pack, no membership), to join a gym, to check a Stripe checkout, or to see, book, or cancel their own Gymmy classes. Use search_gyms, get_gym, get_schedule, get_prices, start_trial, and search_classes with no account. Use book_dropin, join_gym, checkout_status, my_gyms, my_bookings, my_schedule, book_class, and cancel_booking only with a connected Gymmy account; if a tool needs sign-in, tell the user to connect Gymmy."
+description: "Use when the user wants a gym or studio in France or Europe, a class schedule, prices, a trial link, a drop-in (one class, a trial, or a class pack, no membership), to join a gym, to check a Stripe checkout, or to see, book, or cancel their own Gymmy classes. Use search_gyms, get_gym, get_schedule, get_prices, start_trial, and search_classes with no account. Use book_dropin, join_gym, checkout_status, get_my_account, my_gyms, my_bookings, my_schedule, book_class, and cancel_booking only with a connected Gymmy account; if a tool needs sign-in, tell the user to connect Gymmy."
 ---
 
 # Gymmy
 
-Gymmy lists independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance, climbing) and books classes on Gymmy.
+Gymmy lists independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance, climbing, padel) and books classes on Gymmy.
 
 Only state gyms, classes, times, spots, prices, offers, and links that a tool returned. Never invent or fill in a missing field from memory. If a tool errors or returns nothing, say so.
 
@@ -17,7 +17,7 @@ Pass `locale` `en` when the user writes in English. The default is `fr`. Prices 
 
 No account:
 
-- `search_gyms` — by name, city, postcode, address, or lat/lng. Pass the returned `gym` value to `get_gym`, `get_schedule`, `get_prices`, or `start_trial`. An activity filter may only be `crossfit`, `hyrox`, `fitness`, `yoga`, `pilates`, `boxing`, `martial_arts`, `dance`, or `climbing`.
+- `search_gyms` — by name, city, postcode, address, or lat/lng. Pass the returned `gym` value to `get_gym`, `get_schedule`, `get_prices`, or `start_trial`. An activity filter may only be `crossfit`, `hyrox`, `fitness`, `yoga`, `pilates`, `boxing`, `martial_arts`, `dance`, `climbing`, or `padel`.
 - `get_gym` — description, address, hours, sites, and how to book.
 - `get_schedule` — the next 14 days, or one `date` (`YYYY-MM-DD`).
 - `get_prices` — memberships, class packs, and trial offers, each with an `offer_id` for `join_gym`.
@@ -31,6 +31,7 @@ A connected Gymmy account (any account; drop-in and join do not need a membershi
 - `book_dropin` — buy a trial, one class, or a class pack and book that class. Use this for a single class or a trial tied to a class. Not for a membership with no class.
 - `join_gym` — a membership or a class pack from `get_prices`, with no class. For a single class or a trial that already has a class, use `book_dropin`.
 - `checkout_status` — status of a `book_dropin` or `join_gym` purchase, using its `ref`: `pending`, `processing`, `paid`, `free`, or `failed`.
+- `get_my_account` — who is signed in: name, e-mail, membership status, and linked gyms.
 - `my_gyms` — gyms the member belongs to.
 - `my_bookings` — upcoming booked and waitlisted classes (next 2 weeks), all of their gyms or one `gym`.
 - `my_schedule` — a week of classes at the member's gyms, with the `class_id` values `book_class` needs.
