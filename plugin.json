@@ -56,7 +56,7 @@
             },
             {
               "description": "Show a gym's class schedule",
-              "prompt": "What classes are on tomorrow at Box Agents?",
+              "prompt": "What classes are on tomorrow at that gym?",
               "tools_triggered": "search_gyms, get_schedule",
               "expected_behavior": "Shows tomorrow's classes at that gym with times and a link per class."
             },

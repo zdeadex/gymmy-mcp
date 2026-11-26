@@ -20,7 +20,7 @@ Single URL (not per-customer).
 
 ## 2. Tools
 
-Synced from the server. All 14 tools have a `title` and `readOnlyHint` / `destructiveHint`; names are under 64 characters. Fix any tool the portal flags on the server, then resync.
+Synced from the server. All 15 tools have a `title` and `readOnlyHint` / `destructiveHint`; names are under 64 characters. Fix any tool the portal flags on the server, then resync.
 
 ## 3. Listing
 
@@ -37,7 +37,7 @@ Synced from the server. All 14 tools have a `title` and `readOnlyHint` / `destru
 
 Description (≤ 2,000):
 
-> Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance, climbing). Ask Claude to find a gym near you, see its class schedule and prices, and get a trial class link, with no account. Connect your Gymmy account (e-mail code) to see your gyms and upcoming bookings, book a class with your membership or cancel one under your gym's own rules, or buy a drop-in (trial, single class, class pack) or a membership. Purchases are never charged in the chat: after you confirm, Gymmy returns the gym's own Stripe Checkout page, and no card data reaches Claude. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable.
+> Gymmy is the booking and management platform of independent gyms and studios in France and Europe (CrossFit, HYROX, fitness, yoga, pilates, boxing, martial arts, dance, climbing, padel). Ask Claude to find a gym near you, see its class schedule and prices, and get a trial class link, with no account. Connect your Gymmy account (e-mail code) to see your gyms and upcoming bookings, book a class with your membership or cancel one under your gym's own rules, or buy a drop-in (trial, single class, class pack) or a membership. Purchases are never charged in the chat: after you confirm, Gymmy returns the gym's own Stripe Checkout page, and no card data reaches Claude. Gyms not on Gymmy yet come from OpenStreetMap and are clearly marked as not bookable.
 
 ## 4. Use cases
 
@@ -84,6 +84,7 @@ Every submission is scanned and listed as a **Community connector** by default; 
 | `book_dropin` | yes | no | Summary first; with `confirm: true`, the gym's Stripe Checkout link (or a booking when free) |
 | `join_gym` | yes | no | Same confirm-then-Stripe pattern for a membership or class pack |
 | `checkout_status` | yes | yes | Status of a `book_dropin` / `join_gym` checkout |
+| `get_my_account` | yes | yes | Who is signed in: name, e-mail, membership status, linked gyms |
 | `my_gyms` | yes | yes | Gyms of the signed-in member |
 | `my_bookings` | yes | yes | Upcoming booked and waitlisted classes |
 | `my_schedule` | yes | yes | Week of classes with class ids |
@@ -93,7 +94,7 @@ Every submission is scanned and listed as a **Community connector** by default; 
 ## Reference: example prompts
 
 1. "Find a CrossFit gym near Lyon."
-2. "What classes are on tomorrow at Box Agents?"
+2. "What classes are on tomorrow at that gym?"
 3. "How much is a membership there, and can I try a class?"
 4. "Find a yoga class I can drop into near Bastille tomorrow."
 5. After connecting: "What are my bookings?"
